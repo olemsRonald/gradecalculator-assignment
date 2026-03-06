@@ -1,0 +1,5 @@
+data class Student(
+    val name: String,
+    val score: Int,
+    val grade: String
+)

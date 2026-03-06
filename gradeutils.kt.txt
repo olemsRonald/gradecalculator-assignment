@@ -1,0 +1,42 @@
+import java.io.File
+
+// Validation function
+fun validateScore(score: Int): Boolean {
+    return score in 0..100
+}
+
+// Formatting function
+fun formatStudent(student: Student): String {
+    return "${student.name},${student.score},${student.grade}"
+}
+
+// Calculate grade
+fun calculateGrade(score: Int): String {
+    return when {
+        score >= 90 -> "A"
+        score >= 80 -> "B"
+        score >= 70 -> "C"
+        score >= 60 -> "D"
+        else -> "F"
+    }
+}
+
+// Higher-order function
+fun processStudents(students: List<Student>, action: (Student) -> Unit) {
+    students.forEach { action(it) }
+}
+
+// Save CSV
+fun saveToCSV(students: List<Student>) {
+    val file = File("students.csv")
+
+    file.printWriter().use { out ->
+        out.println("Name,Score,Grade")
+
+        students.forEach {
+            out.println("${it.name},${it.score},${it.grade}")
+        }
+    }
+
+    println("CSV file created: students.csv")
+}
