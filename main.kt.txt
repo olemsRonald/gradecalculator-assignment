@@ -1,0 +1,35 @@
+fun main() {
+
+    val studentsInput = listOf(
+        Pair("Alice", 85),
+        Pair("Bob", 72),
+        Pair("Charlie", 91),
+        Pair("David", 55)
+    )
+
+    // Filter valid scores
+    val validStudents = studentsInput
+        .filter { validateScore(it.second) }
+
+    // Map to Student objects
+    val students = validStudents.map {
+        val grade = calculateGrade(it.second)
+        Student(it.first, it.second, grade)
+    }
+
+    println("Student Results:")
+
+    students.forEach {
+        println(formatStudent(it))
+    }
+
+    // Demonstration of lambda with custom higher-order function
+    println("\nUsing Higher Order Function:")
+
+    processStudents(students) { student ->
+        println("${student.name} got grade ${student.grade}")
+    }
+
+    // Save CSV
+    saveToCSV(students)
+}
